@@ -1,6 +1,5 @@
 //Alex Stalter
-//Jack Nichols
-//Joe Silveira
+//also Jack Nichols
 //#include <stdio.h>
 
 void printString(char*);
@@ -13,9 +12,6 @@ void writeSector(char*, int);
 void executeProgram(char*);
 void terminate();
 void listDir();
-void deleteFile(char*);
-
-
 void main()
 {
 
@@ -114,15 +110,7 @@ void handleInterrupt21(int ax,int bx,int cx,int dx){
 
 	writeSector(bx,cx);
 
-	}else if(ax==7) {
-
-	
-
-	}else if(ax==8) {
-
-
-
-	}else if(ax==9){
+	}else if(ax==7){
 
 	listDir();
 
@@ -180,7 +168,7 @@ void handleInterrupt21(int ax,int bx,int cx,int dx){
 }
 */
 //New readFile written by Joe Silveira
-void readFile(char* fileName , char* fileBuffer,int* sectorsRead) {
+void readFile(char* fileName , char* fileBuffer) {
 
 //Variables
 	char fileDirectory[512];
@@ -209,9 +197,8 @@ void readFile(char* fileName , char* fileBuffer,int* sectorsRead) {
 		if(buffer[i] != fileName[matches]){
 
 			//2.2 if it doesnt match go to the next sector
-			i+=31;
-			matches = 0;
-			*sectorsRead = *sectorsRead +1;
+			i += 31;
+
 		}else if (matches == 5){
 			//printString("Matches \n");
 			
@@ -251,13 +238,7 @@ void readFile(char* fileName , char* fileBuffer,int* sectorsRead) {
 		}
 
 	}
-	if(matches==0)
-	{
-
-	*sectorsRead=0;
-
-	}
-	//return;
+	return;
 }
 
 
@@ -324,11 +305,10 @@ void listDir(){
 void executeProgram(char* name)
 {
 	int i;
-	int sectorsRead;
 	char buffer[13312];
 	int segment = 0x2000;
 
-	readFile(name, buffer, &sectorsRead);
+	readFile(name, buffer);
 
 	for(i = 0; i < 13312; i++)
 	{

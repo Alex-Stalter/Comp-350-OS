@@ -37,7 +37,7 @@ void main(){
 
 			syscall(0,"\r\n");
 			syscall(0,"**Directory Files**\r\n");
-			syscall(9); 
+			syscall(7); 
 			syscall(0,"\r");
 			break;
 			
@@ -57,7 +57,7 @@ void main(){
 
 				filename[6] = 0x0;
 
-				syscall(3,filename,fileBuff,&sectorsRead);
+				syscall(3,filename,fileBuff);
 
 				if(sectorsRead>0){
 					syscall(0,fileBuff);
