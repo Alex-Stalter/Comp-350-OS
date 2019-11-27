@@ -37,7 +37,7 @@ void main(){
 
 			syscall(0,"\r\n");
 			syscall(0,"**Directory Files**\r\n");
-			syscall(7); 
+			syscall(9); 
 			syscall(0,"\r");
 			break;
 			
@@ -57,7 +57,7 @@ void main(){
 
 				filename[6] = 0x0;
 
-				syscall(3,filename,fileBuff);
+				syscall(3,filename,fileBuff,&sectorsRead);
 
 				if(sectorsRead>0){
 					syscall(0,fileBuff);
@@ -96,7 +96,17 @@ void main(){
 				syscall(0,"\r\nPlease enter a program name\n\r");
 				break;
 			}
+		}else if(line[0]=='d'&&line[1]=='e'&&line[2]=='l'){
+		
 
+			  	for(i = 0; i < 6; i++)
+				{
+        	      	                filename[i] = line[pos + i];    
+                	        }
+
+                                filename[6] = 0x0;
+
+                                syscall(7,filename);
 
 		}else {
 
