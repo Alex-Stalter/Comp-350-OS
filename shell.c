@@ -19,8 +19,11 @@ void main(){
 		char filename[6];
 		char programName[6];
 		char fileBuff[512];
+		char buffer[13312];
+		char filename1[6];
+		char filename2[6];
 		int sectorsRead;
-		int i;
+		int i,j,k;
 		int pos;
 		int pos2;
 
@@ -111,8 +114,42 @@ void main(){
                                 syscall(7,filename);
 
 		}else if(line[0]=='c'&&line[1]=='o'&&line[2]=='p'&&line[3]=='y'){
+		
+		pos = 5;
+		i = 0;
 
-		syscall(0,"Welcome to the compy function!\n\r");
+		for(j = 0;j < 6; j++)
+		{
+			filename1[i] = line[pos + j];
+			i++;
+		}
+		filename1[6] = 0x0;
+//		syscall(0,filename1);
+
+		i =0;
+		for(j = 7; j < 13; j++)
+		{
+			filename2[i] = line[pos + j];
+			i++;
+		}
+		filename2[6] = 0x0;
+//		syscall(0,filename2);
+
+		syscall(3,filename1, buffer, 0);
+
+		i = 0;
+		while(buffer[i] != 0x0)
+		{
+			i++;
+		}
+		k = 0;
+		while(k*512 <= i)
+		{
+			k++;
+		}
+
+
+		syscall(8,buffer,filename2,k);
 
 
 		}else if(line[0]=='c'&&line[1]=='r'&&line[2]=='e'&&line[3]=='a'&&line[4]=='t'&&line[5]=='e'){
