@@ -15,17 +15,28 @@ void terminate();
 void listDir();
 void deleteFile(char*);
 void writeFile(char*,char*,int);
+void handleTimerInterrupt(int, int);
 
 void main()
 {
 
 	makeInterrupt21();
 	interrupt(0x21,8,"this is a test message","testmg",3);
+	makeTimerInterrupt();
 	interrupt(0x21,4,"shell",0,0);
 	while(1);
 
 }
-
+void handleTimerInterrupt(int segment, int sp)
+{
+	
+		printChar('T');
+		printChar('i');
+		printChar('c');
+	
+	returnFromTimer(segment,sp);
+	
+}
 void printString(char* chars){
 	int i = 0;
 	while(chars[i]!=0x0){

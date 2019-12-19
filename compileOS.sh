@@ -18,6 +18,11 @@ ld86 -d -o tstpr1 tstpr1.o userlib.o
 bcc -ansi -c -o tstpr2.o tstpr2.c
 ld86 -d -o tstpr2 tstpr2.o userlib.o
 
+bcc -ansi -c -o letter.o letter.c
+ld86 -d -o letter letter.o userlib.o
+
+bcc -ansi -c -o number.o number.c
+ld86 -d -o number number.o userlib.o
 
 
 gcc -o loadFile loadFile.c
@@ -26,3 +31,5 @@ gcc -o loadFile loadFile.c
 ./loadFile message.txt
 ./loadFile tstpr1
 ./loadFile tstpr2
+./loadFile letter
+./loadFile number
