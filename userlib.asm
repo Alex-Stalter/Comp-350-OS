@@ -1,6 +1,3 @@
-
-
-
 ;userlib.asm
 
 ;Michael Black, 2019
@@ -12,6 +9,8 @@
 
 
 	.global _syscall
+
+	.global _enableInterrupts
 
 
 
@@ -38,5 +37,15 @@ _syscall:
 	ret
 
 
+
+;void enableInterrupts()
+
+;call at the beginning of programs.  allows timer preemption
+
+_enableInterrupts:
+
+	sti
+
+	ret
 
 

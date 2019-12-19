@@ -15,17 +15,28 @@ void terminate();
 void listDir();
 void deleteFile(char*);
 void writeFile(char*,char*,int);
+void handleTimerInterrupt(int, int);
 
 void main()
 {
 
 	makeInterrupt21();
 	interrupt(0x21,8,"this is a test message","testmg",3);
+	makeTimerInterrupt();
 	interrupt(0x21,4,"shell",0,0);
 	while(1);
 
 }
-
+void handleTimerInterrupt(int segment, int sp)
+{
+	
+		printChar('T');
+		printChar('i');
+		printChar('c');
+	
+	returnFromTimer(segment,sp);
+	
+}
 void printString(char* chars){
 	int i = 0;
 	while(chars[i]!=0x0){
@@ -141,43 +152,29 @@ void handleInterrupt21(int ax,int bx,int cx,int dx){
 	int i=0;
 	int matches = 0;
 	char dir[512];
-
 	readSector(dir,2);
 	for(count=0;count<512;count=count+32)
 	{
-
-
 	*sectorsRead=*sectorsRead+1;
-
 		for(i=0;i<6;i++)
 		{
-
 		if(address[i]==dir[i+count]){
-
 		matches++;
 //		printChar(dir[i+count]);
-
 		}else{
-
 		matches=0;
 		break;
 		}
-
 		}
-
-
 	if(matches==6){
 	readSector(buffer,*sectorsRead+4);
 	break;
-
 }
-
 	}
 	if(matches!=6){
 	*sectorsRead=0;
 	printString("/nError file not found.");
 }
-
 }
 */
 //New readFile written by Joe Silveira
@@ -518,4 +515,3 @@ void writeFile(char* buffer,char* file,int sectors){
 	}
 
 }
-
